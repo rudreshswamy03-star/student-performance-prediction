@@ -1,0 +1,91 @@
+{
+    "best_model_name": "Random Forest",
+    "metrics": {
+        "Linear Regression": {
+            "MAE": 1.6467,
+            "RMSE": 2.3784,
+            "R2": 0.7241
+        },
+        "Decision Tree": {
+            "MAE": 1.3439,
+            "RMSE": 2.4026,
+            "R2": 0.7185
+        },
+        "Random Forest": {
+            "MAE": 1.1853,
+            "RMSE": 1.9541,
+            "R2": 0.8138
+        }
+    },
+    "feature_importances": [
+        {
+            "feature": "G2",
+            "importance": 0.7984
+        },
+        {
+            "feature": "absences",
+            "importance": 0.11034
+        },
+        {
+            "feature": "reason_home",
+            "importance": 0.02091
+        },
+        {
+            "feature": "age",
+            "importance": 0.01046
+        },
+        {
+            "feature": "G1",
+            "importance": 0.00585
+        },
+        {
+            "feature": "famrel",
+            "importance": 0.00537
+        },
+        {
+            "feature": "goout",
+            "importance": 0.0043
+        },
+        {
+            "feature": "activities_yes",
+            "importance": 0.00371
+        },
+        {
+            "feature": "health",
+            "importance": 0.00358
+        },
+        {
+            "feature": "studytime",
+            "importance": 0.00319
+        },
+        {
+            "feature": "romantic_yes",
+            "importance": 0.00312
+        },
+        {
+            "feature": "schoolsup_yes",
+            "importance": 0.0027
+        },
+        {
+            "feature": "Walc",
+            "importance": 0.00254
+        },
+        {
+            "feature": "guardian_mother",
+            "importance": 0.00237
+        },
+        {
+            "feature": "guardian_other",
+            "importance": 0.00198
+        }
+    ],
+    "wrangling_summary": {
+        "initial_rows": 395,
+        "final_rows": 395,
+        "total_columns": 33,
+        "total_missing_values": 0,
+        "duplicate_records": 0,
+        "outlier_absences_count": 15,
+        "absence_iqr_threshold": 20.0
+    }
+}
