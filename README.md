@@ -19,6 +19,8 @@
 - [Core Academic Subjects (5th Semester)](#-core-academic-subjects-5th-semester)
 - [Dataset Specifications & Disclaimer](#-dataset-specifications--disclaimer)
 - [System Architecture & Folder Structure](#-system-architecture--folder-structure)
+- [📱 Mobile Application (React Native / Expo)](#-mobile-application-react-native--expo)
+- [⚡ FastAPI Backend Service](#-fastapi-backend-service)
 - [Machine Learning Benchmark Results](#-machine-learning-benchmark-results)
 - [Early Warning System Protocols](#-early-warning-system-protocols)
 - [Installation & Quick Start](#-installation--quick-start)
@@ -120,13 +122,60 @@ student-performance-prediction/
 │   ├── predict.py                   # Standalone inference engine and counseling rules
 │   └── train_models.py              # Model benchmarking, training & Joblib serialization
 │
+├── backend/                         # ⚡ FastAPI High-Performance Backend
+│   ├── app/
+│   │   ├── routers/                 # Modular API endpoints (auth, students, predict, warning)
+│   │   ├── auth.py                  # JWT authentication & role-based access control
+│   │   ├── config.py                # University branding & settings
+│   │   ├── database.py              # SQLite storage & seed users
+│   │   └── main.py                  # FastAPI core application & CORS middleware
+│   └── run_server.py                # Standalone Uvicorn launcher (Port 8000)
+│
+├── mobile/                          # 📱 React Native / Expo Mobile Application
+│   ├── assets/                      # University branded icons and splash screens
+│   ├── src/
+│   │   ├── components/              # Buttons, Cards, Badges
+│   │   ├── context/                 # AuthContext & Session management
+│   │   ├── navigation/              # Bottom Tabs & Stack navigation
+│   │   ├── screens/                 # Splash, Onboarding, Login, Home, Academics, Predictor, Warning
+│   │   ├── services/                # REST API client connecting to FastAPI
+│   │   └── theme/                   # University color palette & typography
+│   ├── App.tsx                      # Root component
+│   ├── app.json                     # Android & iOS bundle configuration
+│   └── package.json                 # Mobile dependencies
+│
 ├── app.py                           # Full Streamlit interactive university web dashboard
+├── desktop_app.py                   # Windows Native Edge App / Tkinter desktop interface
 ├── main.py                          # Master execution runner (runs full pipeline end-to-end)
 ├── run.bat                          # One-click Windows batch launcher
-├── requirements.txt                 # Project library dependencies (including Plotly)
+├── requirements.txt                 # Project library dependencies (FastAPI, Scikit-Learn, Streamlit)
 ├── .gitignore                       # Clean Git exclusion rules
 └── README.md                        # Project documentation
 ```
+
+---
+
+## 📱 Mobile Application (React Native / Expo)
+
+EduPredict AI includes a fully-featured, cross-platform mobile application for Android and iOS:
+- **Splash & University Onboarding:** 4-step walkthrough emphasizing student success and early intervention.
+- **Role-Based Authentication:** Dedicated portals for **Student**, **Faculty**, and **Administrator** with One-Touch Demo logins.
+- **Interactive AI Performance Predictor:** Direct mobile inference against the trained Scikit-Learn machine learning model.
+- **Early Academic Warning System (EAWS):** Filterable risk roster with counseling protocol triggers.
+- **6 Core Subjects Audit:** Real-time CIE-1, CIE-2, and attendance tracking for 5th semester courses.
+- **Android APK Build:** Ready for standalone APK generation via Expo Application Services (`eas build -p android --profile preview`).
+
+For detailed mobile instructions, see [`mobile/README.md`](mobile/README.md).
+
+---
+
+## ⚡ FastAPI Backend Service
+
+The mobile application is powered by a dedicated high-performance **FastAPI** backend:
+- **FastAPI Core:** Automatic OpenAPI / Swagger UI interactive documentation at `http://localhost:8000/docs`.
+- **Machine Learning Endpoint (`POST /api/predict`):** Direct real-time inference using the trained `best_model.joblib`.
+- **Early Warning Endpoint (`GET /api/early-warning`):** Real-time risk categorization and intervention roster.
+- **Role-Based Access Control (RBAC):** Token authentication protecting student, faculty, and administrative routes.
 
 ---
 

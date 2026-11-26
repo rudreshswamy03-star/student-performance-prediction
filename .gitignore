@@ -54,3 +54,13 @@ ehthumbs.db
 *.log
 scratch/
 tmp/
+
+# Node.js and React Native / Expo
+node_modules/
+**/node_modules/
+.expo/
+**/.expo/
+dist/
+web-build/
+*.tsbuildinfo
+.eas/

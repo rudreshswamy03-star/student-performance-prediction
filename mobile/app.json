@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "EduPredict AI",
+    "slug": "edupredict-ai",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F172A"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sapthagiri.edupredictai"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0F172A"
+      },
+      "package": "com.sapthagiri.edupredictai",
+      "versionCode": 1,
+      "permissions": [
+        "INTERNET"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "universityName": "Sapthagiri NPS University",
+      "department": "Computer Science and Engineering",
+      "apiBaseUrl": "http://10.0.2.2:8000"
+    }
+  }
+}
