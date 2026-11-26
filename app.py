@@ -903,9 +903,9 @@ elif nav_selection == "6. Early Warning System":
     st.markdown("""
     | Risk Tier | Criteria | Mandatory Action |
     | :--- | :--- | :--- |
-    | **🔴 High Risk** | Final Score $< 50$, Attendance $< 65\%$, or $\ge 3$ Backlogs | Immediate parent-teacher meeting, mandatory remedial coaching, weekly attendance monitoring. |
-    | **🟡 Medium Risk** | Final Score $50 - 59$, Attendance $65 - 74\%$, or $2$ Backlogs | Department faculty mentor counseling, assignment completion recovery plan, peer tutoring. |
-    | **🟢 Low Risk** | Final Score $\ge 60$, Attendance $\ge 75\%$, $\le 1$ Backlogs | Standard academic progress tracking; encourage research and hackathon participation. |
+    | **🔴 High Risk** | Final Score < 50, Attendance < 65%, or ≥ 3 Backlogs | Immediate parent-teacher meeting, mandatory remedial coaching, weekly attendance monitoring. |
+    | **🟡 Medium Risk** | Final Score 50 - 59, Attendance 65 - 74%, or 2 Backlogs | Department faculty mentor counseling, assignment completion recovery plan, peer tutoring. |
+    | **🟢 Low Risk** | Final Score ≥ 60, Attendance ≥ 75%, ≤ 1 Backlogs | Standard academic progress tracking; encourage research and hackathon participation. |
     """)
 
 
