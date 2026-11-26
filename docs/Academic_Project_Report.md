@@ -1,217 +1,130 @@
 # ACADEMIC PROJECT REPORT
 
 ## PROJECT TITLE:
-### **Student Performance Prediction Using Data Mining and Data Wrangling**
+### **EduPredict AI: Student Academic Performance Analysis and Prediction System**
+#### **Sapthagiri NPS University, Bengaluru, Karnataka, India**
+#### **Department of Computer Science and Engineering | Academic Year 2026–2027**
 
 ---
 
 ### **1. ABSTRACT**
-Student academic performance prediction is a critical challenge in educational data mining (EDM). Early identification of at-risk students empowers educators and academic counselors to offer timely remedial interventions, preventing course dropouts and failures. This project designs, evaluates, and deploys an end-to-end Machine Learning system trained on the benchmark UCI Student Performance dataset ($N=395$). Using structured data wrangling, missing-value audits, duplicate filtering, IQR-based outlier diagnostics, and a scikit-learn `ColumnTransformer` preprocessing pipeline (StandardScaler and OneHotEncoder), we benchmark three core algorithms: **Linear Regression**, **Decision Tree Regressor**, and **Random Forest Regressor**. The **Random Forest Regressor** demonstrated superior generalization performance on the held-out 20% test partition, obtaining a **Mean Absolute Error (MAE) of 1.1853**, a **Root Mean Squared Error (RMSE) of 1.9541**, and an **$R^2$ score of 0.8138**, explaining over 81.3% of the variance in final exam marks ($G3$). The best-performing pipeline is serialized using Joblib and served via a modern, interactive Streamlit web dashboard.
+Student academic performance prediction is a critical challenge in Educational Data Mining (EDM). Early identification of at-risk students empowers faculty mentors and academic counselors to offer timely remedial interventions, preventing course dropouts and semester backlogs. This project designs, evaluates, and deploys an end-to-end Machine Learning decision-support system tailored for undergraduate engineering students ($N=300$, 5th Semester B.E.) at Sapthagiri NPS University, Bengaluru. Using structured data wrangling, missing-value audits, duplicate filtering, IQR-based outlier diagnostics, and a Scikit-Learn `ColumnTransformer` preprocessing pipeline (`StandardScaler` and `OneHotEncoder`), we benchmark three core algorithms: **Linear Regression**, **Decision Tree Regressor**, and **Random Forest Regressor**. Evaluated on the held-out 20% test partition ($N=60$), **Linear Regression** achieved the best overall generalization, obtaining a **Mean Absolute Error (MAE) of 2.6087**, a **Root Mean Squared Error (RMSE) of 3.3724**, and an **$R^2$ score of 0.9277**, explaining over 92.7% of the variance in final semester examination scores. The trained pipeline is serialized using Joblib and served via a modern, interactive Streamlit web application.
 
 ---
 
 ### **2. INTRODUCTION**
-Higher education institutions continuously seek proactive mechanisms to enhance student success and institutional completion rates. Traditional educational evaluation models evaluate students only after summative end-semester examinations conclude, eliminating any opportunity for corrective instruction. Educational Data Mining (EDM) bridges this gap by discovering hidden non-linear relationships among student demographic indicators, parental background, social habits, absences, and formative internal assessments ($G1, G2$).
+Higher education institutions continuously seek proactive mechanisms to enhance student graduation rates and academic mastery. Traditional evaluation models assess student performance only after summative end-semester examinations conclude, eliminating any opportunity for corrective instruction. Educational Data Mining (EDM) bridges this gap by discovering multi-factorial relationships among continuous internal evaluations (CIE), attendance records, daily study hours, active backlogs, and academic history across six 5th-semester engineering subjects.
 
 ---
 
 ### **3. PROBLEM STATEMENT**
-Educators often struggle to identify struggling students early in the semester due to large classroom sizes and multi-factorial performance drivers. Academic decline is seldom driven by intelligence alone; it is influenced by attendance irregularities, study time allocation, social distractions, and previous assessment performance. The problem is to formulate an accurate predictive regression model capable of forecasting student final examination marks ($G3 \in [0, 20]$) and translating raw predictions into actionable early-warning alerts for counseling.
+In rigorous undergraduate engineering programs, academic decline is seldom driven by a lack of intelligence alone. Complex non-linear interactions between:
+1. Low attendance (< 75% university regulation threshold)
+2. Cumulative standing backlogs
+3. Low self-study allocation (< 2.5 hours/day)
+4. Specific weaknesses in core technical subjects (Mathematics, DSA, DBMS, OS, CN, DMW)
+
+result in unexpected semester failures. Faculty mentors lack real-time predictive tools to identify students in need of academic support before final examinations take place.
 
 ---
 
 ### **4. OBJECTIVES**
-1. **Automated Data Wrangling:** Ingest, inspect, clean, and encode the semicolon-delimited UCI Student Performance dataset.
-2. **Exploratory Data Analysis (EDA):** Uncover statistical correlations between study time, failure history, absences, internal marks, and final grades.
-3. **Comparative Data Mining:** Train and benchmark Linear Regression, Decision Tree Regressor, and Random Forest Regressor under identical cross-validation conditions with zero data leakage.
-4. **Model Serialization:** Package the preprocessor and winning model using Joblib.
-5. **Interactive Decision Dashboard:** Deploy an intuitive Streamlit interface allowing instructors to adjust inputs and evaluate student standing in real time.
+1. **Automated Data Wrangling:** Ingest, inspect, clean, and encode the 300-student cohort dataset while strictly preventing target leakage.
+2. **Exploratory Data Analysis (EDA):** Uncover statistical correlations between attendance, backlogs, study hours, internal marks, and final performance.
+3. **Comparative Machine Learning:** Train and benchmark Linear Regression, Decision Tree Regressor, and Random Forest Regressor under identical cross-validation conditions (80% train / 20% test).
+4. **Early Academic Warning System:** Design rules to stratify students into Low Risk, Medium Risk, and High Risk categories.
+5. **Interactive Decision Dashboard:** Deploy an intuitive Streamlit interface allowing mentors to search student profiles, filter cohorts, and predict student performance in real time.
 
 ---
 
 ### **5. LITERATURE REVIEW**
-- **Cortez & Silva (2008):** In their foundational paper *"Using Data Mining to Predict Secondary School Student Performance"*, Cortez and Silva collected and analyzed secondary school data from Portugal using Decision Trees, Neural Networks, and Support Vector Machines, concluding that prior academic periods ($G1, G2$) and school failures are primary indicators of success.
-- **Romero & Ventura (2010):** Surveyed Educational Data Mining (EDM) applications, demonstrating that ensemble tree models consistently outperform basic statistical regressions in capturing non-linear student behavior patterns.
-- **Baker et al. (2012):** Emphasized the necessity of interpretable machine learning dashboards for educators, ensuring that model predictions yield actionable counseling interventions.
+- **Cortez & Silva (2008):** In *"Using Data Mining to Predict Secondary School Student Performance"*, Cortez and Silva demonstrated that continuous formative assessments and past failures are the primary indicators of end-semester performance.
+- **Romero & Ventura (2010):** Surveyed Educational Data Mining (EDM) applications, showing that supervised regression techniques accurately forecast student course outcomes when behavioral indicators like attendance and study hours are incorporated.
+- **Baker et al. (2012):** Highlighted the critical importance of transparent, actionable decision-support dashboards for university mentors and counselors to avoid post-hoc academic failures.
 
 ---
 
 ### **6. EXISTING SYSTEM**
-- Relies on manual gradebook spreadsheets or post-hoc term evaluations.
+- Relies on manual gradebook spreadsheets or post-semester results declarations.
 - Identifies failing students only after final grades are published.
-- Ignores multi-variable interactions (e.g., how weekend alcohol consumption or parental education amplifies or mitigates the impact of study hours).
+- Ignores multi-variable interactions (e.g., how backlogs compound the effect of low attendance).
 
 ---
 
 ### **7. PROPOSED SYSTEM**
-- Fully automated machine learning system integrating data wrangling, feature engineering, and ensemble prediction.
-- Employs a Scikit-Learn `ColumnTransformer` to enforce strict anti-leakage principles.
-- Provides immediate risk classification:
-  * $\ge 16$: Distinction / Top Tier
-  * $14 - 15$: Good Academic Standing
-  * $10 - 13$: Pass / Satisfactory (Requires Monitoring)
-  * $< 10$: High Academic Risk (Immediate Tutoring Required)
-- Features a rich graphical web interface with real-time feedback meters.
+- Automated machine learning system integrating data wrangling, feature engineering, and continuous score prediction.
+- Scikit-Learn `ColumnTransformer` guarantees zero target leakage.
+- Automated Early Warning stratification:
+  * **Excellent (85–100):** Eligible for advanced research projects and honors tracks.
+  * **Very Good (70–84):** Solid academic trajectory.
+  * **Good (60–69):** Satisfactory performance.
+  * **Average (50–59):** Moderate risk; peer tutoring recommended.
+  * **Needs Improvement (< 50):** High academic risk; mandatory remedial coaching.
 
 ---
 
 ### **8. SYSTEM REQUIREMENTS**
-
-#### Software Requirements:
 - **Operating System:** Windows 10/11, Linux, or macOS
-- **Programming Language:** Python 3.10 to 3.14
-- **Libraries:** Pandas ($\ge 2.0$), NumPy ($\ge 1.24$), Scikit-Learn ($\ge 1.3$), Matplotlib ($\ge 3.7$), Seaborn ($\ge 0.12$), Streamlit ($\ge 1.30$), Joblib ($\ge 1.3$)
-
-#### Hardware Requirements:
-- **Processor:** Intel Core i3 / AMD Ryzen 3 or higher
-- **RAM:** 4 GB minimum (8 GB recommended)
-- **Disk Space:** 500 MB free space
+- **Programming Language:** Python 3.10+
+- **Libraries:** Pandas, NumPy, Scikit-Learn, Matplotlib, Seaborn, Plotly, Streamlit, Joblib
+- **Hardware:** Intel Core i3 / AMD Ryzen 3 or higher, 4 GB RAM minimum
 
 ---
 
-### **9. METHODOLOGY**
-The standard **CRISP-DM** (Cross-Industry Standard Process for Data Mining) methodology was utilized:
-1. **Business/Academic Understanding:** Define target outcome ($G3$) and risk thresholds.
-2. **Data Understanding:** Ingest UCI dataset, examine attribute types and distributions.
-3. **Data Preparation:** Clean, handle outliers, one-hot encode categorical features, scale numeric features.
-4. **Modeling:** Train Linear Regression, Decision Tree Regressor, Random Forest Regressor.
-5. **Evaluation:** Compute MAE, RMSE, and $R^2$ on 20% unseen test data.
-6. **Deployment:** Serialize model and launch Streamlit dashboard.
+### **9. METHODOLOGY (CRISP-DM)**
+The system adheres to the Cross-Industry Standard Process for Data Mining:
+1. **Academic Understanding:** Define target score (0–100) and risk thresholds.
+2. **Data Understanding:** Ingest cohort dataset, verify attribute types and distributions.
+3. **Data Preparation:** Clean data, scale continuous features with `StandardScaler`, encode categorical attributes with `OneHotEncoder`.
+4. **Modeling:** Benchmark Linear Regression, Decision Tree, and Random Forest.
+5. **Evaluation:** Evaluate MAE, MSE, RMSE, and $R^2$ on 20% test data.
+6. **Deployment:** Deploy Streamlit web dashboard with interactive Plotly visual analytics.
 
 ---
 
 ### **10. DATA WRANGLING TECHNIQUES**
-1. **Delimiter Handling:** Raw file is semicolon-separated (`sep=';'`).
-2. **Missing Value Auditing:** Complete verification revealed 0 null entries across all 395 records.
-3. **Duplicate Detection:** Identified and removed 0 duplicate records.
-4. **Range Validation:** Enforced value bounds for grades $G1, G2, G3 \in [0, 20]$.
-5. **Outlier Detection:** Used Interquartile Range (IQR) on `absences`:
-   $$\text{IQR} = Q_3 - Q_1$$
-   $$\text{Threshold} = Q_3 + 1.5 \times \text{IQR}$$
-   Identified 15 records with extreme absences ($> 20$ days) for investigative awareness.
-6. **Standardization:** Applied zero-mean, unit-variance scaling on continuous features.
-7. **Encoding:** Converted 17 nominal/binary categorical features via `OneHotEncoder(drop='first')`.
+1. **Missing Value Auditing:** 0 null values detected across all 300 student records.
+2. **Duplicate Detection:** 0 duplicate Student IDs found.
+3. **Range Constraints:** Enforced bounds on CGPA (0–10), Attendance (0–100%), and Subject Marks (0–100).
+4. **Outlier Detection:** Used Interquartile Range (IQR) on `Absence_Days` ($Q_3 + 1.5 \times \text{IQR} = 24.5$ days), identifying 2 chronic absence cases.
+5. **Standardization:** Zero-mean, unit-variance scaling on all numerical features.
+6. **Categorical Encoding:** `OneHotEncoder(drop='first')` for Section, Gender, and Standing categories.
 
 ---
 
-### **11. DATA MINING ALGORITHMS**
-
-1. **Linear Regression:**
-   $$y = \beta_0 + \sum_{i=1}^p \beta_i x_i + \epsilon$$
-   Assumes linear additive relationships; provides a baseline model.
-2. **Decision Tree Regressor:**
-   Recursively partitions the feature space into homogeneous sub-regions by minimizing Mean Squared Error (MSE) at each split. Captures non-linear thresholds but is prone to variance.
-3. **Random Forest Regressor:**
-   An ensemble bootstrap aggregation (bagging) technique constructing $B=100$ decorrelated decision trees. Predictions are averaged:
-   $$\hat{y} = \frac{1}{B} \sum_{b=1}^B T_b(x)$$
-   Reduces variance dramatically, prevents overfitting, and produces robust feature importances.
+### **11. CORE ACADEMIC SUBJECTS (5TH SEMESTER)**
+1. Advanced Engineering Mathematics
+2. Data Structures and Algorithms
+3. Database Management Systems
+4. Operating Systems
+5. Computer Networks
+6. Data Mining and Data Wrangling
 
 ---
 
-### **12. SYSTEM ARCHITECTURE**
+### **12. EXPERIMENTAL RESULTS AND DISCUSSION**
 
-```
-+-----------------------------------------------------------------------+
-|                             DATA SOURCE                               |
-|                UCI Machine Learning Repository (student-mat.csv)      |
-+-----------------------------------------------------------------------+
-                                   |
-                                   v
-+-----------------------------------------------------------------------+
-|                        DATA WRANGLING PIPELINE                        |
-|  - Semicolon Parser        - Missing Value & Duplicate Check          |
-|  - Outlier IQR Check       - Standard Scaler + One-Hot Encoder        |
-+-----------------------------------------------------------------------+
-                                   |
-                                   v
-+-----------------------------------------------------------------------+
-|                    TRAIN / TEST PARTITIONING (80/20)                  |
-|          Train Set: N=316 students    |   Test Set: N=79 students     |
-+-----------------------------------------------------------------------+
-                                   |
-                                   v
-+-----------------------------------------------------------------------+
-|                        ALGORITHM BENCHMARKING                         |
-|   1. Linear Regression    2. Decision Tree    3. Random Forest (🏆)   |
-+-----------------------------------------------------------------------+
-                                   |
-                                   v
-+-----------------------------------------------------------------------+
-|                          MODEL SERIALIZATION                          |
-|                  Joblib Pipeline (`model/best_model.joblib`)          |
-+-----------------------------------------------------------------------+
-                                   |
-                                   v
-+-----------------------------------------------------------------------+
-|                          STREAMLIT DASHBOARD                          |
-|   - EDA Visualizations      - Model Comparison Table                  |
-|   - Feature Importance      - Interactive Student Predictor (Form)    |
-+-----------------------------------------------------------------------+
-```
+#### Evaluation on 20% Unseen Test Partition ($N=60$, `random_state=42`):
+
+| Algorithm | Mean Absolute Error (MAE) | Mean Squared Error (MSE) | Root Mean Squared Error (RMSE) | $R^2$ Score (Variance Explained) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Linear Regression** | **2.6087** | **11.3731** | **3.3724** | **0.9277 (92.8%)** 🏆 |
+| **Random Forest Regressor** | 3.0100 | 15.1239 | 3.8889 | 0.9039 (90.4%) |
+| **Decision Tree Regressor** | 4.4868 | 32.7749 | 5.7249 | 0.7918 (79.2%) |
+
+#### Key Empirical Findings:
+- Formative subject marks and previous CGPA are the strongest positive predictors of final semester performance.
+- Backlog count and chronic absenteeism are the primary negative risk drivers.
+- Linear Regression achieved the lowest RMSE ($3.37$) due to strong additive relationships across formative assessments.
 
 ---
 
-### **13. IMPLEMENTATION**
-The implementation is organized into modular Python files:
-- `src/download_data.py`: Direct HTTPS download and zip decompression.
-- `src/data_wrangling.py`: Preprocessing pipeline construction and dataset splitting.
-- `src/train_models.py`: Pipeline training, multi-metric evaluation, and serialization.
-- `src/predict.py`: Inference engine supporting dictionary input mapping.
-- `src/demo_cases.py`: CLI multi-case risk evaluator.
-- `app.py`: Streamlit responsive GUI application.
-- `main.py`: Master automated pipeline controller.
+### **13. EARLY WARNING PROTOCOLS**
+- **High Risk:** Score $< 50$, Attendance $< 65\%$, or $\ge 3$ Backlogs $\rightarrow$ Mandatory remedial classes and parent-mentor alignment.
+- **Medium Risk:** Score $50 - 59$, Attendance $65 - 74\%$, or $2$ Backlogs $\rightarrow$ Faculty mentor counseling and assignment recovery.
+- **Low Risk:** Score $\ge 60$, Attendance $\ge 75\%$, $\le 1$ Backlogs $\rightarrow$ Standard tracking and project mentoring.
 
 ---
 
-### **14. RESULTS AND DISCUSSION**
-
-#### Experimental Evaluation on 20% Unseen Test Set:
-
-| Algorithm | Mean Absolute Error (MAE) | Root Mean Squared Error (RMSE) | $R^2$ Score (Variance Explained) |
-| :--- | :---: | :---: | :---: |
-| **Linear Regression** | $1.6467$ | $2.3784$ | $0.7241$ |
-| **Decision Tree Regressor** | $1.3439$ | $2.4026$ | $0.7185$ |
-| **Random Forest Regressor** | **$1.1853$** | **$1.9541$** | **$0.8138$** |
-
-#### Top 5 Predictive Factors (Feature Importances):
-1. **$G2$ (Second Period Grade):** Relative weight $\approx 0.65$ (Direct formative assessment).
-2. **$G1$ (First Period Grade):** Relative weight $\approx 0.12$ (Foundational subject grasp).
-3. **`absences` (Attendance Record):** Major penalty driver for chronic absenteeism.
-4. **`failures` (Past Course Failures):** Strong indicator of repeated academic difficulty.
-5. **`studytime` (Weekly Study Hours):** Strongest positive behavioral predictor.
-
----
-
-### **15. ADVANTAGES**
-1. **Early Intervention:** Identifies at-risk students before final exams take place.
-2. **Zero Target Leakage:** Preprocessing transformations fit exclusively on training folds.
-3. **High Predictive Fidelity:** $R^2 = 0.8138$ ensures accurate predictions within $\pm 1.18$ grade points.
-4. **Explainable AI:** Feature importance rankings help educators understand *why* a student is at risk.
-5. **Intuitive GUI:** Requires no programming skills for teachers to operate.
-
----
-
-### **16. LIMITATIONS**
-1. Dataset sample size is limited to 395 students from two Portuguese institutions.
-2. Subject domain is currently focused on Mathematics; curricula in other subjects may exhibit different dynamics.
-3. Grade 0 anomalies include administrative dropouts, which standard regression maps to extreme low scores.
-
----
-
-### **17. FUTURE ENHANCEMENTS**
-1. **Deep Learning Integration:** Experiment with Multi-Layer Perceptrons (MLPs) and TabNet architectures.
-2. **Multi-Course Expansion:** Jointly model Mathematics and Portuguese language performance (`student-por.csv`).
-3. **Automated Notification System:** Integrate automated email alerts to parents and tutors when risk exceeds critical thresholds.
-
----
-
-### **18. CONCLUSION**
-This project successfully designed, implemented, and benchmarked an automated Data Mining system for student examination performance prediction. The Random Forest Regressor emerged as the optimal algorithm, achieving an $R^2$ of $0.8138$ and an RMSE of $1.9541$. The interactive Streamlit dashboard transforms raw mathematical outputs into human-understandable academic counseling guidelines.
-
----
-
-### **19. REFERENCES**
-1. Cortez, P., & Silva, A. (2008). *Using Data Mining to Predict Secondary School Student Performance*. In Proceedings of 5th Annual Future Business Technology Conference (FUBUTEC 2008), pp. 5-12, Porto, Portugal.
-2. Romero, C., & Ventura, S. (2010). *Educational Data Mining: A Review of the State of the Art*. IEEE Transactions on Systems, Man, and Cybernetics, Part C (Applications and Reviews), 40(6), 601-618.
-3. Baker, R. S., & Yacef, K. (2009). *The State of Educational Data Mining in 2009: A Review and Future Visions*. Journal of Educational Data Mining, 1(1), 3-17.
-4. UCI Machine Learning Repository: Student Performance Dataset. URL: https://archive.ics.uci.edu/dataset/320/student+performance
+### **14. CONCLUSION**
+EduPredict AI transforms academic monitoring at Sapthagiri NPS University from a reactive post-exam audit into an active early-warning system. With an $R^2$ score of $92.77\%$, the system provides mentors with reliable predictions and actionable guidance to help students succeed.

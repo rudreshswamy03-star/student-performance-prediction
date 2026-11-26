@@ -1,91 +1,106 @@
 {
-    "best_model_name": "Random Forest",
+    "institution": "Sapthagiri NPS University, Bengaluru",
+    "department": "Computer Science and Engineering",
+    "academic_year": "2026\u20132027",
+    "semester": "5th Semester",
+    "best_model_name": "Linear Regression",
     "metrics": {
         "Linear Regression": {
-            "MAE": 1.6467,
-            "RMSE": 2.3784,
-            "R2": 0.7241
+            "MAE": 2.6087,
+            "MSE": 11.3731,
+            "RMSE": 3.3724,
+            "R2": 0.9277
         },
         "Decision Tree": {
-            "MAE": 1.3439,
-            "RMSE": 2.4026,
-            "R2": 0.7185
+            "MAE": 4.4868,
+            "MSE": 32.7749,
+            "RMSE": 5.7249,
+            "R2": 0.7918
         },
         "Random Forest": {
-            "MAE": 1.1853,
-            "RMSE": 1.9541,
-            "R2": 0.8138
+            "MAE": 3.01,
+            "MSE": 15.1239,
+            "RMSE": 3.8889,
+            "R2": 0.9039
         }
     },
     "feature_importances": [
         {
-            "feature": "G2",
-            "importance": 0.7984
+            "feature": "Previous_CGPA",
+            "importance": 3.58365
         },
         {
-            "feature": "absences",
-            "importance": 0.11034
+            "feature": "Backlogs",
+            "importance": 2.53696
         },
         {
-            "feature": "reason_home",
-            "importance": 0.02091
+            "feature": "Previous_Semester_Performance_Second Class",
+            "importance": 2.09248
         },
         {
-            "feature": "age",
-            "importance": 0.01046
+            "feature": "Previous_Semester_Performance_Pass Class",
+            "importance": 1.90519
         },
         {
-            "feature": "G1",
-            "importance": 0.00585
+            "feature": "Attendance_Percentage",
+            "importance": 1.62025
         },
         {
-            "feature": "famrel",
-            "importance": 0.00537
+            "feature": "Daily_Study_Hours",
+            "importance": 1.59612
         },
         {
-            "feature": "goout",
-            "importance": 0.0043
+            "feature": "Assignment_Completion_Percentage",
+            "importance": 1.45686
         },
         {
-            "feature": "activities_yes",
-            "importance": 0.00371
+            "feature": "Previous_Semester_Performance_First Class",
+            "importance": 1.28639
         },
         {
-            "feature": "health",
-            "importance": 0.00358
+            "feature": "Gender_Male",
+            "importance": 1.27218
         },
         {
-            "feature": "studytime",
-            "importance": 0.00319
+            "feature": "Previous_Semester_Performance_Distinction",
+            "importance": 1.06564
         },
         {
-            "feature": "romantic_yes",
-            "importance": 0.00312
+            "feature": "Marks_Mathematics",
+            "importance": 1.06478
         },
         {
-            "feature": "schoolsup_yes",
-            "importance": 0.0027
+            "feature": "Marks_DMW",
+            "importance": 1.06152
         },
         {
-            "feature": "Walc",
-            "importance": 0.00254
+            "feature": "Internal_Assessment_Marks",
+            "importance": 0.77278
         },
         {
-            "feature": "guardian_mother",
-            "importance": 0.00237
+            "feature": "Marks_CN",
+            "importance": 0.57503
         },
         {
-            "feature": "guardian_other",
-            "importance": 0.00198
+            "feature": "Marks_DSA",
+            "importance": 0.52464
         }
     ],
     "wrangling_summary": {
-        "initial_rows": 395,
-        "final_rows": 395,
-        "total_columns": 33,
+        "institution": "Sapthagiri NPS University, Bengaluru",
+        "department": "Computer Science and Engineering",
+        "academic_year": "2026\u20132027",
+        "current_semester": "5th Semester",
+        "initial_rows": 300,
+        "final_rows": 300,
+        "total_columns": 28,
         "total_missing_values": 0,
         "duplicate_records": 0,
-        "outlier_absences_count": 15,
-        "absence_iqr_threshold": 20.0
+        "outlier_absences_count": 2,
+        "absence_iqr_threshold": 24.5,
+        "cgpa_outliers_count": 0,
+        "average_cgpa": 7.13,
+        "average_attendance": 76.1,
+        "average_final_score": 73.7
     }
 }
